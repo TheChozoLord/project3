@@ -1,35 +1,22 @@
 package Project3;
 
+import java.util.ArrayList;
+
 public class Bank {
-    customers = new ;
 
-    private static void addCustomer(String first, String last, int pin, int deposit){
+    private ArrayList<Customer> customerList = new ArrayList<>();
 
-    }
-    private static void removeCustomer(int PIN){
-
-    }
-    private static void findCustomer(int PIN){
-        int low = 0;
-        int high = array.length - 1;
-
-        while (low <= high) {
-            int mid = low + (high - low) / 2;
-            int result = PIN.compareTo(array[mid]);
-            if (result == 0) {
-                return mid;
-            } else if (result > 0) {
-                low = mid + 1;
-            } else {
-                high = mid - 1;
+    public void addCustomer(Customer customer){customerList.add(customer);}
+    public void removeCustomer(Customer customer){ customerList.remove(customer);}
+    public Customer findCustomer(int PIN) {
+        Customer foundCustomer = null;
+        for (Customer customer : customerList) {
+            if (customer.getPin() == PIN) {
+                foundCustomer = customer;
+                break;
             }
-
         }
-        return -1;
+        return foundCustomer;
     }
-    private static void getAllCustomerInfo(){
-        for (int i =0; i<= customers.length; i++){
-            System.out.println(customers[i]);
-        }
-    }
+    public ArrayList<Customer> getCustomerList(){return customerList;}
 }

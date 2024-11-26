@@ -6,38 +6,37 @@ public class Customer {
     private String firstName;
     private String lastName;
     private int PIN;
-    private list<Integer> accounts = new ArrayList<>();
+    private ArrayList<Account> accounts = new ArrayList<>();
 
-    private static void constructor(String firstName, String lastName, int PIN){
-
+    public Customer(String firstName, String lastName, int PIN){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.PIN = PIN;
     }
-    private static void addAccount(){
 
+    public String getFirstName(){return firstName;}
+
+    public String getLastName(){return lastName;}
+
+    public int getPin(){return PIN;}
+
+    public void openAccount(Account account){accounts.add(account);}
+
+    public void closeAccount(Account account) {
+        accounts.remove(account);
     }
-    private static void closeAccount(){
 
-    }
-    private static void findAccount(int accountNumber, int[] array){
-        int low = 0;
-        int high = array.length - 1;
+    public ArrayList<Account> getAllAccounts(){return accounts;}
 
-        while (low <= high) {
-            int mid = low + (high - low) / 2;
-            int result = accountNumber.compareTo(array[mid]);
-            if (result == 0) {
-                return mid;
-            } else if (result > 0) {
-                low = mid + 1;
-            } else {
-                high = mid - 1;
+    public Account getAccount(int PIN) {
+        Account foundAccount = null;
+        for (Account account : accounts) {
+            if (account.getAccountNumber() == PIN) {
+                foundAccount = account;
+                break;
             }
+        }
+        return foundAccount;
+    }
 
-        }
-        return -1;
-    }
-    private static void viewAllAccounts(){
-        for (int i =0; i<= accounts.length; i++){
-            System.out.println(accounts[i]);
-        }
-    }
 }

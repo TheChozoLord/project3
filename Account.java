@@ -3,28 +3,35 @@ package Project3;
 import java.util.Scanner;
 
 public class Account {
+
     private double balance = 0;
     private int accountNumber;
     private static int numberOfAccounts = 1000;
+    private Scanner scan = new Scanner(System.in);
 
-    static Scanner scan = new Scanner(System.in);
-
-    private static void createAccount(int initialDeposit){
-        balance = initialDeposit;
-        accountNumber = numberOfAccounts + 1;
+    public Account(Double initialDeposit){
+        this.balance = initialDeposit;
+        this.accountNumber = numberOfAccounts + 1;
         numberOfAccounts = numberOfAccounts++;
     }
 
-    private static void deposit(double moneyValue){
-        System.out.println("Please input the amount you wish to deposit");
-        balance = balance + moneyValue;
-        System.out.println("Your current balance is $" + balance);
+    public double getBalance(){return balance;}
+    public int getAccountNumber(){return accountNumber;}
+    public int getNumberOfAccounts(){return numberOfAccounts - 1000;}
+    private void deposit(){
+        System.out.println("Input deposit amount: ");
+        int deposit = Integer.parseInt(scan.nextLine());
+        balance = balance + deposit;
+    }
+    private void withdrawl(){
+        System.out.println("Input deposit amount: ");
+        int deposit = Integer.parseInt(scan.nextLine());
+        balance = balance - deposit;
     }
 
-    private static void withdraw(double moneyValue){
-        System.out.println("Please input the amount you wish to withdraw");
-        balance = balance - moneyValue;
-        System.out.println("Your current balance is $" + balance);
+    @Override
+    public String toString() {
+        return String.format("Account number: %d\n" + "Balance: %d\n",
+                accountNumber, balance);
     }
-
 }
