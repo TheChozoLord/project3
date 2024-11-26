@@ -1,6 +1,4 @@
 package Project3;
-import PokemonShowing.Move;
-import PokemonShowing.Pokemon;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -59,6 +57,7 @@ public class Menu {
                 deleteCustomer();
             }
             else if (menuSelect == 4){
+                System.out.println("Thank you for banking with us");
                 break;
             }
             else{
@@ -73,13 +72,46 @@ public class Menu {
         Customer customer = bank.findCustomer(PIN);
         if (customer == null) {
             System.out.println("Customer not found.");
-            return;
         } else {
             ArrayList<Account> accounts = customer.getAllAccounts();
             for (int i = 0; i < accounts.size(); i++) {
-                System.out.printf("%d. %s\n\n", i + 1, accounts.get(i));
+                System.out.printf("%d. %s\n\n", accounts.get(i));
             }
             System.out.println("Please input the account number of the account you want to open:");
+            int accountNumber = Integer.parseInt(scan.nextLine());
+            Account account = customer.getAccount(accountNumber);
+            while (true) {
+                System.out.println("1) Make a deposit:\n2) Make a withdrawal\n3) Check account balance\n4) Close account\n5) Exit\n");
+                int menuSelect = Integer.parseInt(scan.nextLine());
+                if (menuSelect == 1) {
+                    System.out.println("Input deposit amount:\n$");
+                    double deposit = Double.parseDouble(scan.nextLine());
+                    account.deposit(deposit);
+                    double balance = account.getBalance();
+                    System.out.printf("Your balance is $%.2f", balance);
+                }
+                else if (menuSelect == 2) {
+                    System.out.println("Input deposit amount: ");
+                    double deposit = Double.parseDouble(scan.nextLine());
+                    account.withdrawl(deposit);
+                    double balance = account.getBalance();
+                    System.out.printf("Your balance is $%.2f", balance);
+                }
+                else if (menuSelect == 3){
+                    double balance = account.getBalance();
+                    System.out.printf("Your balance is $%.2f", balance);
+                }
+                else if (menuSelect == 4){
+                    customer.closeAccount(account);
+                    System.out.printf("Account number %i closed", accountNumber);
+                }
+                else if (menuSelect == 5){
+                    break;
+                }
+                else {
+                    System.out.println("Invalid input");
+                }
+            }
         }
     }
 
@@ -100,18 +132,26 @@ public class Menu {
         System.out.println("Please input a four digit PIN number:");
         PIN = Integer.parseInt(scan.nextLine());
         customer = new Customer(firstName, secondName, PIN);
-        System.out.println("Please create at least one new account: ");
+        System.out.print("Input the initial Deposit:\n$");
+        initialDeposit = Double.parseDouble(scan.nextLine());
+        account = new Account(initialDeposit);
+        customer.openAccount(account);
+        int accountNumber = account.getAccountNumber();
+        System.out.printf("Account number %d opened.\n", accountNumber);
         while (true) {
             int menuSelect;
-            System.out.print("1) Create a new account.\n2) exit\n");
+            System.out.println("1) Create a new account");
+            System.out.println("2) Exit");
             menuSelect = Integer.parseInt(scan.nextLine());
             if (menuSelect == 2) {
                 break;
             }
-            System.out.print("Input the initial Deposit: ");
+            System.out.print("Input the initial Deposit:\n$");
             initialDeposit = Double.parseDouble(scan.nextLine());
             account = new Account(initialDeposit);
             customer.openAccount(account);
+            int accountNumber = account.getAccountNumber();
+            System.out.printf("Account number %d opened.\n", accountNumber);
         }
         bank.addCustomer(customer);
         System.out.println();

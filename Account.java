@@ -12,26 +12,27 @@ public class Account {
     public Account(Double initialDeposit){
         this.balance = initialDeposit;
         this.accountNumber = numberOfAccounts + 1;
-        numberOfAccounts = numberOfAccounts++;
+        accountNumber = numberOfAccounts++;
     }
 
     public double getBalance(){return balance;}
     public int getAccountNumber(){return accountNumber;}
     public int getNumberOfAccounts(){return numberOfAccounts - 1000;}
-    private void deposit(){
-        System.out.println("Input deposit amount: ");
-        int deposit = Integer.parseInt(scan.nextLine());
+    public void deposit(double deposit){
         balance = balance + deposit;
     }
-    private void withdrawl(){
-        System.out.println("Input deposit amount: ");
-        int deposit = Integer.parseInt(scan.nextLine());
-        balance = balance - deposit;
+    public void withdrawl(double deposit){
+        if (deposit <= balance) {
+            balance = balance - deposit;
+        }
+        else {
+            System.out.println("You have insufficient funds.");
+        }
     }
 
     @Override
     public String toString() {
-        return String.format("Account number: %d\n" + "Balance: %d\n",
+        return String.format("Account number: %d\n" + "Balance: %.2f\n",
                 accountNumber, balance);
     }
 }

@@ -28,10 +28,10 @@ public class Customer {
 
     public ArrayList<Account> getAllAccounts(){return accounts;}
 
-    public Account getAccount(int PIN) {
+    public Account getAccount(int accountNumber) {
         Account foundAccount = null;
         for (Account account : accounts) {
-            if (account.getAccountNumber() == PIN) {
+            if (account.getAccountNumber() == accountNumber) {
                 foundAccount = account;
                 break;
             }
